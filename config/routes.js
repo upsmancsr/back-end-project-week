@@ -19,7 +19,7 @@ module.exports = server => {
     server.get('/notes', getNotes);
     server.get('/notes/:id', getNoteById);
     server.put('/notes/:id', editNote);
-    // server.delete('/notes/:id', deleteNote);
+    server.delete('/notes/:id', deleteNote);
 };
 
 const createNote = (req, res) => {
@@ -72,15 +72,15 @@ editNote = (req, res) => {
         });
 };
 
-// deleteNote = (req, res) => {
-//     const { id } = req.params;
-//     db('notes')
-//         .where({ id })
-//         .del('*')
-//         .then(response => {
-//             res.status(200).json(response);
-//         })
-//         .catch(err => {
-//             res.status(500).json(err);
-//         });
-// };
+deleteNote = (req, res) => {
+    const { id } = req.params;
+    db('notes')
+        .where({ id })
+        .del()
+        .then(response => {
+            res.status(200).json(response);
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+};
