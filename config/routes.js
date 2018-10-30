@@ -15,6 +15,7 @@ const db = require('../data/dbConfig');
 
 module.exports = server => {
     server.post('/notes', createNote);
+    server.get('/notes', getNotes);
     // server.get('/notes/:id', getNoteById);
     // server.put('/notes/:id', editNote);
     // server.delete('/notes/:id', deleteNote);
@@ -24,7 +25,18 @@ createNote = (req, res) => {
     newNote = req.body;
     db('notes')
         .insert(newNote)
-        .then(response =>{
+        .then(response => {
+            res.status(201).json(response);
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+};
+
+getNotes = (req, res) => {
+    db('notes')
+        .select('*')
+        .then(response => {
             res.status(201).json(response);
         })
         .catch(err => {
