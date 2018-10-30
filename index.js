@@ -1,4 +1,4 @@
-const express = require('./api/server.js');
+const server = require('./server.js');
 
 const port = 3300;
-server.listen(port, () => console.log(`\nserver running on port ${port}\n`));
+server.listen(port, () => console.log(`\nServer is listening on port ${port}\n`));
