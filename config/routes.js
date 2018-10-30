@@ -9,7 +9,8 @@ const db = require('../data/dbConfig');
 
 // need an endpoint for each of the following:
 // create note
-// view note
+// get all notes
+// get specific note
 // edit note
 // delete note
 
@@ -21,15 +22,16 @@ module.exports = server => {
     // server.delete('/notes/:id', deleteNote);
 };
 
-createNote = (req, res) => {
+const createNote = (req, res) => {
     newNote = req.body;
+    
     db('notes')
         .insert(newNote)
         .then(response => {
             res.status(201).json(response);
         })
         .catch(err => {
-            res.status(500).json(err);
+            res.status(500).json(err.message);
         });
 };
 
@@ -57,11 +59,11 @@ getNoteById = (req, res) => {
 };
 
 editNote = (req, res) => {
-    const {id} = req.params;
-    const { title, content } = req.body;
+    const { id } = req.params;
+    const note = req.body;
     db('notes')
-        .update({ title, content })
         .where({ id })
+        .update(note)
         .then(response => {
             res.status(201).json(response);
         })
@@ -70,4 +72,15 @@ editNote = (req, res) => {
         });
 };
 
-
+// deleteNote = (req, res) => {
+//     const { id } = req.params;
+//     db('notes')
+//         .where({ id })
+//         .del('*')
+//         .then(response => {
+//             res.status(200).json(response);
+//         })
+//         .catch(err => {
+//             res.status(500).json(err);
+//         });
+// };
