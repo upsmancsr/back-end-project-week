@@ -1,0 +1,25 @@
+{
+  "name": "yarn",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/upsmancsr/back-end-project-week.git",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest --watch --verbose",
+    "start": "nodemon index.js"
+  },
+  "jest": {
+		"testEnvironment": "node"
+	},
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.4",
+    "knex": "^0.15.2",
+    "sqlite3": "^4.0.3"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.5",
+    "supertest": "^3.3.0"
+  }
+}
