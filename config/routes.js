@@ -16,8 +16,8 @@ const db = require('../data/dbConfig');
 module.exports = server => {
     server.post('/notes', createNote);
     server.get('/notes', getNotes);
-    // server.get('/notes/:id', getNoteById);
-    // server.put('/notes/:id', editNote);
+    server.get('/notes/:id', getNoteById);
+    server.put('/notes/:id', editNote);
     // server.delete('/notes/:id', deleteNote);
 };
 
@@ -43,3 +43,31 @@ getNotes = (req, res) => {
             res.status(500).json(err);
         });
 };
+
+getNoteById = (req, res) => {
+    const { id } = req.params;
+    db('notes')
+        .where({ id })
+        .then(response => {
+            res.status(201).json(response);
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+};
+
+editNote = (req, res) => {
+    const {id} = req.params;
+    const { title, content } = req.body;
+    db('notes')
+        .update({ title, content })
+        .where({ id })
+        .then(response => {
+            res.status(201).json(response);
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+};
+
+
